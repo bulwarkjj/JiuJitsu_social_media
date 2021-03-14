@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,7 +81,8 @@ WSGI_APPLICATION = 'bookmarks.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -122,4 +124,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
+
+
+
+#  Tells django which url to redirect user after successful login if no 'next'(login.html)
+#  parameter is present in the request
+LOGIN_REDIRECT_URL = 'dashboard'
+#  url to redirect user to log in
+LOGIN_URL = 'login'
+#  url to redirect the user log out
+LOGOUT_URL = 'logout'
+# Using the 'name' attribute of the path() function I defined in url patterns for
+# the above variable assignments('dashboard', 'login', 'logout')
